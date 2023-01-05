@@ -1,7 +1,9 @@
 import sys
+import re
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QPushButton, QGridLayout, QHBoxLayout, QSizePolicy,QVBoxLayout, QLineEdit, QWidget, QTextEdit
 from PyQt5.QtCore import QSize
+from PyQt5.QtGui import QFont
 import qdarktheme
 
 class MyWidget(QWidget):
@@ -9,29 +11,28 @@ class MyWidget(QWidget):
     def __init__(self):
         super().__init__()
 
+
         self.line = QLineEdit("Yo")
         self.text = QTextEdit()
         self.text.setMinimumWidth(100)
         self.text.setMaximumWidth(300)
         
-        self.button1 = QPushButton('1')        
-        self.button1.setMinimumHeight(50)
-        self.button1.setMinimumWidth(50)
-        self.button2 = QPushButton('2')        
-        self.button2.setMinimumHeight(50)
-        self.button2.setMinimumWidth(50)
-        self.button3 = QPushButton('3')        
-        self.button3.setMinimumHeight(50)
-        self.button3.setMinimumWidth(50)
-        self.button4 = QPushButton('4')        
-        self.button4.setMinimumHeight(50)
-        self.button4.setMinimumWidth(50)
-        self.button5 = QPushButton('5')        
-        self.button5.setMinimumHeight(50)
-        self.button5.setMinimumWidth(50)
-        self.button6 = QPushButton('6')        
-        self.button6.setMinimumHeight(50)
-        self.button6.setMinimumWidth(50)
+        self.buttonC = QPushButton('C')        
+        self.buttonC.setMinimumHeight(50)
+        self.buttonC.setMinimumWidth(50)
+        self.buttonC.setStyleSheet("color: red;")
+        self.buttonParanthese = QPushButton('()')        
+        self.buttonParanthese.setMinimumHeight(50)
+        self.buttonParanthese.setMinimumWidth(50)
+        self.buttonParanthese.setStyleSheet("color: white;")
+        self.buttonPercent = QPushButton('%')        
+        self.buttonPercent.setMinimumHeight(50)
+        self.buttonPercent.setMinimumWidth(50)
+        self.buttonPercent.setStyleSheet("color: white;")
+        self.buttonForwardSlash = QPushButton('/')        
+        self.buttonForwardSlash.setMinimumHeight(50)
+        self.buttonForwardSlash.setMinimumWidth(50)
+        self.buttonForwardSlash.setStyleSheet("color: white;")
         self.button7 = QPushButton('7')        
         self.button7.setMinimumHeight(50)
         self.button7.setMinimumWidth(50)
@@ -41,6 +42,56 @@ class MyWidget(QWidget):
         self.button9 = QPushButton('9')        
         self.button9.setMinimumHeight(50)
         self.button9.setMinimumWidth(50)
+        self.buttonX = QPushButton('X')        
+        self.buttonX.setMinimumHeight(50)
+        self.buttonX.setMinimumWidth(50)
+        self.buttonX.setStyleSheet("color: white;")
+        self.button4 = QPushButton('4')        
+        self.button4.setMinimumHeight(50)
+        self.button4.setMinimumWidth(50)
+        self.button5 = QPushButton('5')        
+        self.button5.setMinimumHeight(50)
+        self.button5.setMinimumWidth(50)
+        self.button6 = QPushButton('6')        
+        self.button6.setMinimumHeight(50)
+        self.button6.setMinimumWidth(50)
+        self.buttonMinus = QPushButton('-')        
+        self.buttonMinus.setMinimumHeight(50)
+        self.buttonMinus.setMinimumWidth(50)
+        self.buttonMinus.setStyleSheet("color: white;")
+        self.button1 = QPushButton('1')        
+        self.button1.setMinimumHeight(50)
+        self.button1.setMinimumWidth(50)
+        self.button2 = QPushButton('2')        
+        self.button2.setMinimumHeight(50)
+        self.button2.setMinimumWidth(50)
+        self.button3 = QPushButton('3')        
+        self.button3.setMinimumHeight(50)
+        self.button3.setMinimumWidth(50)
+        self.buttonPlus = QPushButton('+')        
+        self.buttonPlus.setMinimumHeight(50)
+        self.buttonPlus.setMinimumWidth(50)
+        self.buttonPlus.setStyleSheet("color: white;")
+        self.buttonPN = QPushButton('+/-')        
+        self.buttonPN.setMinimumHeight(50)
+        self.buttonPN.setMinimumWidth(50)
+        self.buttonPN.setStyleSheet("color: white;")
+        self.button0 = QPushButton('0')        
+        self.button0.setMinimumHeight(50)
+        self.button0.setMinimumWidth(50)
+        self.buttonComa = QPushButton(',')        
+        self.buttonComa.setMinimumHeight(50)
+        self.buttonComa.setMinimumWidth(50)
+        self.buttonComa.setStyleSheet("color: white;")
+        self.buttonEquals = QPushButton('=')        
+        self.buttonEquals.setMinimumHeight(50)
+        self.buttonEquals.setMinimumWidth(50)
+        self.buttonEquals.setMouseTracking(True)
+        self.buttonEquals.setStyleSheet("background-color: green;")
+
+
+
+        
 
 
         self.pLayout = QVBoxLayout(self)
@@ -54,29 +105,102 @@ class MyWidget(QWidget):
 
 
         policy = QSizePolicy.Policy.Expanding
-        for i in range(1,10):
+        self.buttonC.setSizePolicy(policy,policy)
+        self.buttonParanthese.setSizePolicy(policy,policy)
+        self.buttonPercent.setSizePolicy(policy,policy)
+        self.buttonForwardSlash.setSizePolicy(policy,policy)
+        self.buttonX.setSizePolicy(policy,policy)
+        self.buttonMinus.setSizePolicy(policy,policy)
+        self.buttonPlus.setSizePolicy(policy,policy)
+        self.buttonEquals.setSizePolicy(policy,policy)
+        self.buttonComa.setSizePolicy(policy,policy)
+        self.buttonPN.setSizePolicy(policy,policy)
+
+        for i in range(10):
             exec(f"self.button{i}.setSizePolicy(policy,policy)")
 
 
-        self.cLayout.addWidget(self.button1,0,0)
-        self.cLayout.addWidget(self.button2,0,1)
-        self.cLayout.addWidget(self.button3,0,2)
-        self.cLayout.addWidget(self.button4,1,0)
-        self.cLayout.addWidget(self.button5,1,1)
-        self.cLayout.addWidget(self.button6,1,2)
-        self.cLayout.addWidget(self.button7,2,0)
-        self.cLayout.addWidget(self.button8,2,1)
-        self.cLayout.addWidget(self.button9,2,2)
+        self.cLayout.addWidget(self.buttonC,0,0)
+        self.cLayout.addWidget(self.buttonParanthese,0,1)
+        self.cLayout.addWidget(self.buttonPercent,0,2)
+        self.cLayout.addWidget(self.buttonForwardSlash,0,3)
+        self.cLayout.addWidget(self.button7,1,0)
+        self.cLayout.addWidget(self.button8,1,1)
+        self.cLayout.addWidget(self.button9,1,2)
+        self.cLayout.addWidget(self.buttonX,1,3)
+        self.cLayout.addWidget(self.button4,2,0)
+
+        self.cLayout.addWidget(self.button5,2,1)
+        self.cLayout.addWidget(self.button6,2,2)
+        self.cLayout.addWidget(self.buttonMinus,2,3)
+        self.cLayout.addWidget(self.button1,3,0)
+        self.cLayout.addWidget(self.button2,3,1)
+        self.cLayout.addWidget(self.button3,3,2)
+        self.cLayout.addWidget(self.buttonPlus,3,3)
+        self.cLayout.addWidget(self.buttonPN,4,0)
+        self.cLayout.addWidget(self.button0,4,1)
+        self.cLayout.addWidget(self.buttonComa,4,2)
+        self.cLayout.addWidget(self.buttonEquals,4,3)
+
+        self.button1.clicked.connect(self.getButtonText)
+        self.button2.clicked.connect(self.getButtonText)
+        self.button3.clicked.connect(self.getButtonText)
+        self.button4.clicked.connect(self.getButtonText)
+        self.button5.clicked.connect(self.getButtonText)
+        self.button6.clicked.connect(self.getButtonText)
+        self.button7.clicked.connect(self.getButtonText)
+        self.button8.clicked.connect(self.getButtonText)
+        self.button9.clicked.connect(self.getButtonText)
+        self.buttonC.clicked.connect(self.clearLine)
+        self.buttonParanthese.clicked.connect(self.insertParen)
+        self.buttonPercent.clicked.connect(self.getButtonText)
+        self.buttonForwardSlash.clicked.connect(self.getButtonText)
+        self.buttonX.clicked.connect(self.getButtonText)
+        self.buttonMinus.clicked.connect(self.getButtonText)
+        self.buttonPlus.clicked.connect(self.getButtonText)
+        self.buttonEquals.clicked.connect(self.calculate)
+        self.buttonComa.clicked.connect(self.getButtonText)
+        self.button0.clicked.connect(self.getButtonText)
+        self.buttonPN.clicked.connect(self.setPN)
 
 
 
+        self.clickedOnce=False
 
-
-            
-
+    
+    def calculate(self):
+        string = self.line.text()
+        pattern = r"\d+\+\d+"
+        match = re.search(pattern, string)
+        if match:
+            # Extract the matched pattern
+            matched_pattern = match.group()
+            self.text.setText(matched_pattern)
+        else:
+            print("Pattern not found")
         
-        
-        
+
+    def setPN(self):
+        self.line.insert("-")
+    
+    def clearLine(self):
+        self.line.clear()
+        self.clickedOnce = False
+
+    def insertParen(self):
+        parenthese = self.buttonParanthese.text()
+        if self.clickedOnce == False:
+            self.line.insert("(")
+            self.clickedOnce = True
+        elif self.clickedOnce == True:
+            self.line.insert(")")
+            self.clickedOnce = False
+
+    def getButtonText(self):
+        sender = app.sender()
+        button = sender.text()
+        self.line.insert(button)
+ 
 if __name__ == "__main__":
     app = QApplication([])
     qdarktheme.setup_theme()
