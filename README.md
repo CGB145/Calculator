@@ -1,2 +1,2 @@
 # Calculator
-Basic calculator using python and qt
+Basic calculator using python and qt5
