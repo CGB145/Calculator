@@ -6,15 +6,15 @@ from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QFont
 import qdarktheme
 
+def findChar(string:str,char:str):
+    allChars = {}
+    for x in string:
+        if x == char:
+            allChars.append(x)
+    return allChars
+    
 
-def remove_plus(string):
-    return string.replace("+"," ")
-def remove_minus(string):
-    return string.replace("-"," ")
-def remove_forwardSlash(string):
-    return string.replace("/"," ")
-def remove_X(string):
-    return string.replace("X"," ")
+
 
 class MyWidget(QWidget):
 
@@ -52,7 +52,7 @@ class MyWidget(QWidget):
         self.button9 = QPushButton('9')        
         self.button9.setMinimumHeight(50)
         self.button9.setMinimumWidth(50)
-        self.buttonX = QPushButton('X')        
+        self.buttonX = QPushButton('*')        
         self.buttonX.setMinimumHeight(50)
         self.buttonX.setMinimumWidth(50)
         self.buttonX.setStyleSheet("color: white;")
@@ -177,40 +177,17 @@ class MyWidget(QWidget):
 
         self.clickedOnce=False
 
+
+
+
+
     #currently only working with one operation. Look at test.py for better re search
     def calculate(self):
         string = self.line.text()
-        pattern = r"\d+\+\d+|\d+\-\d+|\d+X\d+|\d+/\d+"
-        match = re.search(pattern, string)
-        if match:
-            matched_pattern = match.group()
-            if "+" in matched_pattern:
-                matched_pattern = remove_plus(matched_pattern)
-                matched_pattern = matched_pattern.split()
-                result = int(matched_pattern[0]) + int(matched_pattern[1])
-                self.line.setText(str(result))
-                self.text.append(str(result))
-            elif "-" in matched_pattern:
-                matched_pattern = remove_minus(matched_pattern)
-                matched_pattern = matched_pattern.split()
-                result = int(matched_pattern[0]) - int(matched_pattern[1])
-                self.line.setText(str(result))
-                self.text.append(str(result))
-            elif "/" in matched_pattern:
-                matched_pattern = remove_forwardSlash(matched_pattern)
-                matched_pattern = matched_pattern.split()
-                result = int(matched_pattern[0]) / int(matched_pattern[1])
-                self.line.setText(str(result))
-                self.text.append(str(result))
-            elif "X" in matched_pattern:
-                matched_pattern = remove_X(matched_pattern)
-                matched_pattern = matched_pattern.split()
-                result = int(matched_pattern[0]) * int(matched_pattern[1])
-                self.line.setText(str(result))
-                self.text.append(str(result))
-        else:
-            pattern = r"\d+\-\d+"
-            match = re.search(pattern, string)
+        result = eval(string)
+
+        self.line.setText(str(result))
+        self.text.append(str(result))
         
 
     def setPN(self):
