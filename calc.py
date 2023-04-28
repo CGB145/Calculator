@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import sys
 import re
 from PyQt5 import QtWidgets
