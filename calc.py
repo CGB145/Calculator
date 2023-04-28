@@ -7,7 +7,7 @@ from PyQt5.QtGui import QFont
 import qdarktheme
 
 def findChar(string:str,char:str):
-    allChars = {}
+    allChars = []
     for x in string:
         if x == char:
             allChars.append(x)
@@ -21,9 +21,14 @@ class MyWidget(QWidget):
     def __init__(self):
         super().__init__()
 
+        font = QFont()
+        font.setPointSize(20)
 
-        self.line = QLineEdit("Yo")
+
+        self.line = QLineEdit("")
+        self.line.setFont(font)
         self.text = QTextEdit()
+        self.text.setFont(font)
         self.text.setMinimumWidth(100)
         self.text.setMaximumWidth(300)
         
@@ -31,18 +36,22 @@ class MyWidget(QWidget):
         self.buttonC.setMinimumHeight(50)
         self.buttonC.setMinimumWidth(50)
         self.buttonC.setStyleSheet("color: red;")
+        self.buttonC.setFont(font)
         self.buttonParanthese = QPushButton('()')        
         self.buttonParanthese.setMinimumHeight(50)
         self.buttonParanthese.setMinimumWidth(50)
         self.buttonParanthese.setStyleSheet("color: white;")
+        self.buttonParanthese.setFont(font)
         self.buttonPercent = QPushButton('%')        
         self.buttonPercent.setMinimumHeight(50)
         self.buttonPercent.setMinimumWidth(50)
         self.buttonPercent.setStyleSheet("color: white;")
+        self.buttonPercent.setFont(font)
         self.buttonForwardSlash = QPushButton('/')        
         self.buttonForwardSlash.setMinimumHeight(50)
         self.buttonForwardSlash.setMinimumWidth(50)
         self.buttonForwardSlash.setStyleSheet("color: white;")
+        self.buttonForwardSlash.setFont(font)
         self.button7 = QPushButton('7')        
         self.button7.setMinimumHeight(50)
         self.button7.setMinimumWidth(50)
@@ -56,6 +65,7 @@ class MyWidget(QWidget):
         self.buttonX.setMinimumHeight(50)
         self.buttonX.setMinimumWidth(50)
         self.buttonX.setStyleSheet("color: white;")
+        self.buttonX.setFont(font)
         self.button4 = QPushButton('4')        
         self.button4.setMinimumHeight(50)
         self.button4.setMinimumWidth(50)
@@ -69,6 +79,7 @@ class MyWidget(QWidget):
         self.buttonMinus.setMinimumHeight(50)
         self.buttonMinus.setMinimumWidth(50)
         self.buttonMinus.setStyleSheet("color: white;")
+        self.buttonMinus.setFont(font)
         self.button1 = QPushButton('1')        
         self.button1.setMinimumHeight(50)
         self.button1.setMinimumWidth(50)
@@ -82,10 +93,12 @@ class MyWidget(QWidget):
         self.buttonPlus.setMinimumHeight(50)
         self.buttonPlus.setMinimumWidth(50)
         self.buttonPlus.setStyleSheet("color: white;")
+        self.buttonPlus.setFont(font)
         self.buttonPN = QPushButton('+/-')        
         self.buttonPN.setMinimumHeight(50)
         self.buttonPN.setMinimumWidth(50)
         self.buttonPN.setStyleSheet("color: white;")
+        self.buttonPN.setFont(font)
         self.button0 = QPushButton('0')        
         self.button0.setMinimumHeight(50)
         self.button0.setMinimumWidth(50)
@@ -93,11 +106,13 @@ class MyWidget(QWidget):
         self.buttonComa.setMinimumHeight(50)
         self.buttonComa.setMinimumWidth(50)
         self.buttonComa.setStyleSheet("color: white;")
+        self.buttonComa.setFont(font)
         self.buttonEquals = QPushButton('=')        
         self.buttonEquals.setMinimumHeight(50)
         self.buttonEquals.setMinimumWidth(50)
         self.buttonEquals.setMouseTracking(True)
         self.buttonEquals.setStyleSheet("background-color: green;")
+        self.buttonEquals.setFont(font)
 
 
 
@@ -126,8 +141,11 @@ class MyWidget(QWidget):
         self.buttonComa.setSizePolicy(policy,policy)
         self.buttonPN.setSizePolicy(policy,policy)
 
+
+
         for i in range(10):
             exec(f"self.button{i}.setSizePolicy(policy,policy)")
+            exec(f"self.button{i}.setFont(font)")
 
 
         self.cLayout.addWidget(self.buttonC,0,0)
@@ -184,6 +202,9 @@ class MyWidget(QWidget):
     #currently only working with one operation. Look at test.py for better re search
     def calculate(self):
         string = self.line.text()
+        
+        string = string.replace("%","*0.1*")
+        
         result = eval(string)
 
         self.line.setText(str(result))
