@@ -201,14 +201,29 @@ class MyWidget(QWidget):
 
     #currently only working with one operation. Look at test.py for better re search
     def calculate(self):
+        numbers = ["0","1","2","3","4","5","6","7","8","9","+","-","/","%","*","(",")",","]
         string = self.line.text()
+        hasChars = False
+
+        for i in string:
+            if i in numbers:
+                continue
+            else:
+                hasChars = True
+                break
+
+
+
         
         string = string.replace("%","*0.1*")
         
-        result = eval(string)
+        if  bool(string) and not hasChars:
 
-        self.line.setText(str(result))
-        self.text.append(str(result))
+
+            result = eval(string)
+
+            self.line.setText(str(result))
+            self.text.append(str(result))
         
 
     def setPN(self):
